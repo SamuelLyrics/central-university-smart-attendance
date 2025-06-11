@@ -1,0 +1,8 @@
+{
+  "name": "Central University Smart Attendance",
+  "description": "A smart attendance system using facial recognition (simulated) to manage student attendance, track records, and provide statistics. Designed for lecturers and class prefects.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "prompt": ""
+}
