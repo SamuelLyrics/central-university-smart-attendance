@@ -3,6 +3,7 @@ import React from 'react';
 import { HashRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import Layout from './components/Layout';
+import MobileLayout from './components/MobileLayout';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import MarkAttendancePage from './pages/MarkAttendancePage';
@@ -11,6 +12,7 @@ import StudentListPage from './pages/StudentListPage';
 import StatisticsPage from './pages/StatisticsPage';
 import { UserRole } from './types';
 import LoadingSpinner from './components/LoadingSpinner';
+import { useMediaQuery } from 'react-responsive';
 
 
 interface ProtectedRouteProps {
@@ -42,8 +44,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
 
 
 const AppRoutes: React.FC = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const LayoutComponent = isMobile ? MobileLayout : Layout;
+
   return (
-    <Layout>
+    <LayoutComponent>
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
@@ -64,7 +70,7 @@ const AppRoutes: React.FC = () => {
         {/* Fallback for unmatched routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </Layout>
+    </LayoutComponent>
   );
 };
 
