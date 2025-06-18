@@ -1,7 +1,4 @@
-
 import React, { ReactNode } from 'react';
-import Header from './Header';
-import Sidebar from './Sidebar';
 import { useAuth } from '../hooks/useAuth';
 
 interface LayoutProps {
@@ -9,7 +6,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { currentUser, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     // Optional: Add a full-page loading spinner here if desired
@@ -21,14 +18,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-university-light-gray">
-      <Header />
-      <div className="flex flex-1 pt-2">
-        {currentUser && <Sidebar />}
-        <main className={`flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto ${!currentUser ? 'w-full' : ''}`}>
-          {children}
-        </main>
-      </div>
+    <div className="min-h-screen bg-university-light-gray">
+      {/* Add your desktop navigation/header here */}
+      <main>{children}</main>
     </div>
   );
 };

@@ -1,0 +1,2 @@
+// filepath: D:\Central University Smart Attendance 2\backend\src\index.js
+console.log("Backend server is running!");
