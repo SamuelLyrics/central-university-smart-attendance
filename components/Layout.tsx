@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 interface LayoutProps {
@@ -6,21 +7,62 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { isLoading } = useAuth();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
-  if (isLoading) {
-    // Optional: Add a full-page loading spinner here if desired
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-university-light-gray">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-university-blue"></div>
-        </div>
-    );
-  }
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
-    <div className="min-h-screen bg-university-light-gray">
-      {/* Add your desktop navigation/header here */}
-      <main>{children}</main>
+    <div className="flex min-h-screen bg-university-light-gray">
+      {/* Sidebar */}
+      <aside className="w-56 bg-university-blue text-white flex flex-col py-8 px-4">
+        <NavLink
+          to="/"
+          className="mb-4 font-semibold hover:text-university-gold block"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/mark-attendance"
+          className="mb-4 font-semibold hover:text-university-gold block"
+        >
+          Mark Attendance
+        </NavLink>
+        <NavLink
+          to="/register-student"
+          className="mb-4 font-semibold hover:text-university-gold block"
+        >
+          Student Registration
+        </NavLink>
+        <NavLink
+          to="/students"
+          className="mb-4 font-semibold hover:text-university-gold block"
+        >
+          Student List
+        </NavLink>
+        <NavLink
+          to="/statistics"
+          className="mb-4 font-semibold hover:text-university-gold block"
+        >
+          Statistics
+        </NavLink>
+      </aside>
+      {/* Main content */}
+      <div className="flex-1 flex flex-col">
+        {/* Top bar with logout */}
+        <header className="flex justify-end items-center bg-white shadow px-6 py-4">
+          <button
+            onClick={handleLogout}
+            className="bg-university-gold text-university-blue font-semibold px-4 py-2 rounded hover:bg-yellow-400 transition"
+          >
+            Logout
+          </button>
+        </header>
+        <main className="flex-1 p-6">{children}</main>
+      </div>
     </div>
   );
 };

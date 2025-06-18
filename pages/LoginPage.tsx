@@ -37,38 +37,45 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-university-blue to-university-blue-light p-4">
-      <div className="bg-white p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md">
-        <div className="text-center mb-8">
-          <img src="https://picsum.photos/seed/uni_logo/100/100" alt="University Logo" className="mx-auto h-16 w-16 rounded-full mb-4" />
-          <h1 className="text-2xl sm:text-3xl font-bold text-university-blue">{APP_NAME}</h1>
-          <p className="text-gray-600 mt-1">Please sign in to continue</p>
+    <div className="min-h-screen flex flex-col bg-[#14386E]">
+      <header className="w-full py-6 px-8 bg-[#14386E]">
+        <h1 className="text-3xl font-bold text-white">
+          Central University Smart Attendance
+        </h1>
+      </header>
+      <div className="flex flex-1 items-center justify-center">
+        <div className="bg-white p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md">
+          <div className="text-center mb-8">
+            <img src="https://picsum.photos/seed/uni_logo/100/100" alt="University Logo" className="mx-auto h-16 w-16 rounded-full mb-4" />
+            <h1 className="text-2xl sm:text-3xl font-bold text-university-blue">{APP_NAME}</h1>
+            <p className="text-gray-600 mt-1">Please sign in to continue</p>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <Input
+              id="username"
+              label="Username (Email)"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="e.g., lecturer@uni.edu"
+              required
+            />
+            <Input
+              id="password"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
+            {error && <p className="text-sm text-red-500 text-center">{error}</p>}
+            <Button type="submit" variant="primary" size="lg" className="w-full" isLoading={isLoading}>
+              Sign In
+            </Button>
+          </form>
         </div>
-        
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <Input
-            id="username"
-            label="Username (Email)"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="e.g., lecturer@uni.edu"
-            required
-          />
-          <Input
-            id="password"
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            required
-          />
-          {error && <p className="text-sm text-red-500 text-center">{error}</p>}
-          <Button type="submit" variant="primary" size="lg" className="w-full" isLoading={isLoading}>
-            Sign In
-          </Button>
-        </form>
       </div>
     </div>
   );
